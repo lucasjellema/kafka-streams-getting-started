@@ -64,7 +64,8 @@ public class App {
         // building Kafka Streams Model
         KStreamBuilder kStreamBuilder = new KStreamBuilder();
         // the source of the streaming analysis is the topic with country messages
-        KStream<String, CountryMessage> countriesStream = kStreamBuilder.stream(stringSerde, countryMessageSerde, "countries");
+        KStream<String, CountryMessage> countriesStream = 
+                                       kStreamBuilder.stream(stringSerde, countryMessageSerde, "countries");
 
         // THIS IS THE CORE OF THE STREAMING ANALYTICS:
         // running count of countries per continent, published in topic RunningCountryCountPerContinent
@@ -94,7 +95,7 @@ public class App {
         // default serdes for serialzing and deserializing key and value from and to streams in case no specific Serde is specified
         settings.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         settings.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        settings.put(StreamsConfig.STATE_DIR_CONFIG, "C:\\data\\Kafka-9feb2017\\kafka-workshop\\kafka-streams-countries\\tmp");
+        settings.put(StreamsConfig.STATE_DIR_CONFIG, "C:\\temp");
         // to work around exception Exception in thread "StreamThread-1" java.lang.IllegalArgumentException: Invalid timestamp -1
         // at org.apache.kafka.clients.producer.ProducerRecord.<init>(ProducerRecord.java:60)
         // see: https://groups.google.com/forum/#!topic/confluent-platform/5oT0GRztPBo
